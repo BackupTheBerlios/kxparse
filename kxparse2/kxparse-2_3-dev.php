@@ -678,14 +678,14 @@ class kxparse {
   while ($flag) {
    $flag=$this->cprev($anon);
   }
-  return $flag;
+  return true;
  }
  function cend($anon=true) {
   $flag=true;
   while ($flag) {
    $flag=$this->cnext($anon);
   }
-  return $flag;
+  return true;
  }
  function cis_first($anon=true) {
   $flag=$this->cprev($anon);
