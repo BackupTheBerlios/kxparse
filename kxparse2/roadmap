@@ -17,9 +17,9 @@ KXParse/2.3
 * Add names support to cross-level element selection (done)
 * Implement get_tag_name() (done)
 * Implement cnext() (done)
-* Implement cprev()
-* Implement cend()
-* Implement cbeg()
+* Implement cprev() (done)
+* Implement cend() (done)
+* Implement cbeg() (done)
 * Reimplement cselect so that it uses c* functions
 
 KXParse/2.4

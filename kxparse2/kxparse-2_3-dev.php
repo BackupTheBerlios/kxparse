@@ -434,13 +434,14 @@ class kxparse {
   return $res_arr;
  }
  function cross_select($tname,$tindex) {
-  $this->curr_tag['crosssel']=true;
+  $pre_sel=&$this->curr_tag;
+  $pre_sel['crosssel']=true;
   $num=0;
   $flag=true;
   while ($flag) {
    $flag=$this->first_child();
    if (!$flag) $flag=$this->next();
-   if (!$flag) {
+   while (!$flag && $flag2) {
     $this->parent();
     $flag=$this->next();
    }
@@ -452,11 +453,11 @@ class kxparse {
      return true;
     }
     if (@$this->curr_tag['crosssel']==true) {
-     unset($this->curr_tag['crosssel']);
      break;
     }
    }
   }
+  unset($pre_sel['crosssel']);
   if ($tindex==="?") {
    return $num;
   }
@@ -623,16 +624,16 @@ class kxparse {
   }
  }
 /*---------------------------[Cross-level iteration methods]-----------------*/ 
- function cnext($anon=false) {
-  if (!$anon) {
+ function cnext($anon=true) {
+  if ($anon) {
    $flag=$this->first_child();
    if (!$flag) $this->next();
-   if (!$flag) {
-    $pre_sel=&$this->curr_tag;
-    $flag=$this->parent();
+   if (!$flag) $pre_sel=&$this->curr_tag;
+   while (!$flag && !isset($this->curr_tag['parent']['pi'])) {
+    $this->parent();
     $flag=$this->next();
-    if (!$flag) $this->curr_tag=&$pre_sel;
    }
+   if (!$flag && isset($this->curr_tag['parent']['pi'])) $this->curr_tag=&$pre_sel;
    return $flag;
   }
   else {
@@ -647,6 +648,45 @@ class kxparse {
    }
    return $flag;
   }
+ }
+ function cprev($anon=true) {
+  if ($anon) {
+   $flag=$this->last_child();
+   if (!$flag) $flag=$this->prev();
+   if (!$flag)  $pre_sel=&$this->curr_tag;
+   while (!$flag && !isset($this->curr_tag['parent']['pi'])) {
+    $this->parent();
+    $flag=$this->prev();
+   }
+   if (!$flag && isset($this->curr_tag['parent']['pi'])) $this->curr_tag=&$pre_sel;
+   return $flag;
+  }
+  else {
+   $curr_name=$this->get_tag_name();
+   $pre_sel=&$this->curr_tag;
+   do {
+    $flag=$this->cprev();
+   }
+   while ($flag && $this->get_tag_name()!=$curr_name);
+   if ($this->get_tag_name()!=$curr_name) {
+    $this->curr_tag=&$pre_sel;
+   }
+   return $flag;
+  }
+ }
+ function cbeg($anon=true) {
+  $flag=true;
+  while ($flag) {
+   $flag=$this->cprev($anon);
+  }
+  return $flag;
+ }
+ function cend($anon=true) {
+  $flag=true;
+  while ($flag) {
+   $flag=$this->cnext($anon);
+  }
+  return $flag;
  }
 /*------------------------------------------------[front-end functions]------*/
  function get_attribute($tname="",$tindex="",$attr="") {
