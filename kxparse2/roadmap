@@ -1,0 +1,26 @@
+KXParse/2.2 (Released)
+-- As listed in the -dev file
+
+KXParse/2.3
+* xsearch should provide support for "or", "and" and "xor". Also using regular
+  expressions should be optional. (cancelled)
+* Instead of the above provide a section in the docs that tells how to make and/or/xor
+  using xsearch
+* The mapper should load the document piece by piece ? (cancelled)
+* count_tag should be count_element (done)
+* dump_current_tag should be dump_current_element (done)
+* In get_attributes' docs mention that false fills the array if you gave the names (done)
+* Fix the two notices reported by pablo (done + one more notice)
+* Try to add LIMIT to xsearch
+* Select shouldn't change the current element if it fails (done)
+* Add cross-level element selection (done)
+* Add names support to cross-level element selection (done)
+* Implement get_tag_name() (done)
+* Implement cnext() (done)
+* Implement cprev()
+* Implement cend()
+* Implement cbeg()
+* Reimplement cselect so that it uses c* functions
+
+KXParse/2.4
+* KXParse-DOM -- No Comment! (cancelled)

@@ -1,0 +1,38 @@
+<?php
+function getmicrotime(){ 
+list($usec, $sec) = explode(" ",microtime()); 
+return ((float)$usec + (float)$sec); 
+}
+include "kxparse-2_0-dev2.php";
+$xmlobj=new kxparse("changelog.xml");
+//echo $xmlobj->document['children']['?'][1]['children']['change'][90]['start'];echo "<br>";
+echo substr($xmlobj->xml,8820,8970-8820);
+$time_start=getmicrotime();
+//$arr=$xmlobj->xsearch("log:?","1:?",array("date"),array("/.{0,}2002.{0,}/i"));
+$time_end=getmicrotime();
+//$arr=$xmlobj->xlist("log:?","1:?",array("(text)","text","date"),true,$arr);
+echo $time_end-$time_start;
+echo "<br>";
+print_r($arr);
+//echo $xmlobj->curr_tag['name'];
+/*do {
+ echo $xmlobj->get_attribute("date");echo " - ";echo $xmlobj->get_attribute("text");echo "<br>";
+}
+while ($xmlobj->next());*/
+///$xmlobj->create_tag("log:change","1:1","ahmed");
+/*var_dump($xmlobj->has_attribute("date"));echo "<br>";
+var_dump($xmlobj->has_text());echo "<br>";
+var_dump($xmlobj->has_children());echo "<br>";
+var_dump($xmlobj->has_child("ahmed"));echo "<br>";*/
+/*$time_start = getmicrotime();
+$xmlobj->dump_tree();
+$time_end = getmicrotime();*/
+//echo $xmlobj->xml;
+/*
+for ($i=1;$i<=$count;$i++) {
+ echo $xmlobj->get_attribute("date");echo " - ";echo $xmlobj->get_attribute("text");echo "<br>";
+ $xmlobj->prev();
+}*/
+
+//echo "<br>";echo $time_end - $time_start;echo "<br>";
+?>
