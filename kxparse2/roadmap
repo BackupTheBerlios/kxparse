@@ -20,7 +20,7 @@ KXParse/2.3
 * Implement cprev() (done)
 * Implement cend() (done)
 * Implement cbeg() (done)
-* Reimplement cselect so that it uses c* functions
+* Rename cross_select to cselect (done)
 
 KXParse/2.4
 * KXParse-DOM -- No Comment! (cancelled)

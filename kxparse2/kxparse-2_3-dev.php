@@ -354,7 +354,7 @@ class kxparse {
     }
    }
    else if (strpos($name_arr[$i],"!")===0) {
-    $val=$this->cross_select(substr($name_arr[$i],1),$index_arr[$i]);
+    $val=$this->cselect(substr($name_arr[$i],1),$index_arr[$i]);
     if ($index_arr[$i]==="?") {
      return $val;
     }
@@ -433,7 +433,7 @@ class kxparse {
   }
   return $res_arr;
  }
- function cross_select($tname,$tindex) {
+ function cselect($tname,$tindex) {
   $pre_sel=&$this->curr_tag;
   $pre_sel['crosssel']=true;
   $num=0;
@@ -441,7 +441,7 @@ class kxparse {
   while ($flag) {
    $flag=$this->first_child();
    if (!$flag) $flag=$this->next();
-   while (!$flag && $flag2) {
+   while (!$flag && !isset($this->curr_tag['parent']['crosssel'])) {
     $this->parent();
     $flag=$this->next();
    }
