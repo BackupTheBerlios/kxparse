@@ -20,6 +20,8 @@ KXParse/2.3
 * Implement cprev() (done)
 * Implement cend() (done)
 * Implement cbeg() (done)
+* Implement cis_first() (done)
+* Implement cis_last() (done)
 * Rename cross_select to cselect (done)
 * DOCS!!!
 

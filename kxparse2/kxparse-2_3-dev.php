@@ -687,6 +687,16 @@ class kxparse {
   }
   return $flag;
  }
+ function cis_first($anon=true) {
+  $flag=$this->cprev($anon);
+  if ($flag) $this->cnext($anon) ;
+  return $flag;
+ }
+ function cis_last($anon=true) {
+  $flag=$this->cnext($anon);
+  if ($flag) $this->cprev($anon);
+  return $flag;
+ }
 /*------------------------------------------------[front-end functions]------*/
  function get_attribute($tname="",$tindex="",$attr="") {
   if ($attr==="") {
