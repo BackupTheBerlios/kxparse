@@ -1003,7 +1003,7 @@ class kxparse {
   }
   return $res_arr;
  }
- function xsearch($tname,$tindex,$atts,$vals,$num=0) {
+ function xsearch($tname,$tindex,$atts,$vals,$num=0,$limit=0) {
   $arr=$this->xlist($tname,$tindex,$atts,$num);
   $curr_tags=array();
   $ecount=0;
@@ -1026,6 +1026,9 @@ class kxparse {
    if ($match==true) {
     $curr_tags[$ecount]=$arr[$i]['-'];
     $ecount++;
+    if ($ecount==$limit) {
+     break;
+    }
    }
   }
   return $curr_tags;

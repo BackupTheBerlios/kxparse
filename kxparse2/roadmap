@@ -11,7 +11,7 @@ KXParse/2.3
 * dump_current_tag should be dump_current_element (done)
 * In get_attributes' docs mention that false fills the array if you gave the names (done)
 * Fix the two notices reported by pablo (done + one more notice)
-* Try to add LIMIT to xsearch
+* Try to add LIMIT to xsearch (done)
 * Select shouldn't change the current element if it fails (done)
 * Add cross-level element selection (done)
 * Add names support to cross-level element selection (done)
@@ -21,6 +21,7 @@ KXParse/2.3
 * Implement cend() (done)
 * Implement cbeg() (done)
 * Rename cross_select to cselect (done)
+* DOCS!!!
 
 KXParse/2.4
 * KXParse-DOM -- No Comment! (cancelled)
