@@ -6,7 +6,7 @@ KXParse/2.3
   expressions should be optional. (cancelled)
 * Instead of the above provide a section in the docs that tells how to make and/or/xor
   using xsearch
-* The mapper should load the document piece by piece ? (cancelled)
+* The mapper should load the document piece by piece ?
 * count_tag should be count_element (done)
 * dump_current_tag should be dump_current_element (done)
 * In get_attributes' docs mention that false fills the array if you gave the names (done)
