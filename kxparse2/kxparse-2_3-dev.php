@@ -26,34 +26,28 @@ class kxparse {
  function kxparse($file=false) {
   $this->file=$file;
   if ($file!=false) {
-   $flag=$this->init_io();
+   $flag=$this->init_mapper();
    if (!$flag) {
     return false;
    }
-   $this->init_mapper();
    $this->init_tree_dumper();
    $this->init_selection_engine();
   } 
  }
 /*------------------------------------------[IO handling functions]---------*/
  function load($file=false) {
-  $tmp_file=$this->file;
-  if ($file!=false) {
-   $this->file=$file;
-  }
-  if ($this->file!=false) {
-   $flag=$this->init_io();
-   if (!$flag) {
-    $this->file=$tmp_file;
-    return false;
-   }
-   $this->init_mapper();
-   $this->init_tree_dumper();
-   $this->init_selection_engine();
-   return true;
+  if ($file===false) {
+   $flag=$this->init_mapper();
+   return $flag;
   }
   else {
-   return false;
+   $this->file=$file;
+   $flag=$this->init_mapper();
+   if ($flag) {
+    $this->init_tree_dumper();
+    $this->init_selection_engine();
+   }
+   return $flag;
   }
  }
  function save($file=false) {
@@ -74,19 +68,10 @@ class kxparse {
  function load_string($str) {
   $this->xml=$str;
   $this->file=false;
-  $this->init_mapper();
+  $flag=$this->init_mapper();
   $this->init_tree_dumper();
   $this->init_selection_engine();
-  return true;
- }
- function init_io() {
-  $this->xml=$this->io_get_content($this->file);
-  if ($this->xml===false) {
-   return false;
-  }
-  else {
-   return true;
-  }
+  return $flag;
  }
  function io_put_content($filename, $content) {
   $flag=true;
@@ -148,7 +133,26 @@ class kxparse {
   xml_set_character_data_handler($this->xml_parser,"cdata_handler"); 
   xml_set_processing_instruction_handler($this->xml_parser,"pi_handler");
   xml_parser_set_option($this->xml_parser, XML_OPTION_CASE_FOLDING, 0);
-  $this->parse();
+  if ($this->file) {
+   $fd=fopen($this->file,"r");
+   $content="";
+   if (!$fd) {
+    return false;
+   }
+   while (!feof($fd)) {
+    $content=fread($fd,4096);
+    xml_parse($this->xml_parser,$content);
+   }
+   fclose($fd);
+  }
+  else {
+   if ($this->xml=="") {
+    return false;
+   }
+   xml_parse($this->xml_parser,$this->xml);
+  }  
+  $this->init_selection_engine();
+  return true;
  }
  function start_element_handler($parser, $name, $attribs) {
   $this->curr_tag['length']++;
@@ -180,11 +184,6 @@ class kxparse {
  }
  function pi_handler($parser, $target, $data) {
   $this->document['pi'][$target]=$data;
- }
- function parse() {
-  xml_parse($this->xml_parser,$this->xml);
-  $this->xml="";
-  $this->init_selection_engine();
  }
 /*------------------------------------------[tree dumper]-----------------------*/
  function init_tree_dumper() {
