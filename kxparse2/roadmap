@@ -22,7 +22,7 @@ KXParse/2.3
 * Implement cbeg() (done)
 * Implement cis_first() (done)
 * Implement cis_last() (done)
-* fix cprev's bug - it should go to the last child in the previous element.
+* fix cprev's bug - it should go to the last child in the previous element. (done)
 * Rename cross_select to cselect (done)
 * DOCS!!!
 

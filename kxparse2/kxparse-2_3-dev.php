@@ -650,15 +650,9 @@ class kxparse {
  }
  function cprev($anon=true) {
   if ($anon) {
-   $flag=$this->last_child();
-   if (!$flag) $flag=$this->prev();
-   if (!$flag)  $pre_sel=&$this->curr_tag;
-   while (!$flag && !isset($this->curr_tag['parent']['pi'])) {
-    $this->parent();
-    $flag=$this->prev();
-   }
-   if (!$flag && isset($this->curr_tag['parent']['pi'])) $this->curr_tag=&$pre_sel;
-   return $flag;
+   $flag=$this->prev();
+   $this->last_child();
+   if (!$flag) $flag=$this->parent();
   }
   else {
    $curr_name=$this->get_tag_name();
